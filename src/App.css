@@ -1,0 +1,57 @@
+* {
+	box-sizing: border-box;
+}
+
+#header {
+	border: 3px solid salmon;
+}
+
+#article-list {
+	border: 3px solid pink;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: flex-start;
+	gap: 2rem;
+}
+
+.article-card {
+	max-width: 400px;
+	border: 1px solid rebeccapurple;
+	display: grid;
+	grid-template-areas:
+		"topic date author author"
+		"title title title title"
+		"pic pic pic pic"
+		"pic pic pic pic"
+		"votes . . comments";
+}
+
+.article-title {
+	grid-area: title;
+}
+
+.article-author {
+	grid-area: author;
+}
+
+.article-topic {
+	grid-area: topic;
+}
+
+.article-votes {
+	grid-area: votes;
+}
+
+.article-comment-count {
+	grid-area: comments;
+}
+
+.article-img-card {
+	box-sizing:border-box;
+	width: 100%;
+	height: auto;
+	grid-area: pic;
+	padding: 5px;
+  border-radius: 15%;
+}
