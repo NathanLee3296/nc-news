@@ -15,13 +15,15 @@ export default function Articles() {
 	}, []);
 
 	return (
-		<section id="article-list">
+		<>
 			<h2>Articles</h2>
-			{isLoading && <p>page loading</p>}
-			{!isLoading &&
-				articleList.map((article) => {
-					return <ArticleCard key={article.article_id} article={article} />;
-				})}
-		</section>
+			<section id="article-list">
+				{isLoading && <p>page loading</p>}
+				{!isLoading &&
+					articleList.map((article) => {
+						return <ArticleCard key={article.article_id} article={article} />;
+					})}
+			</section>
+		</>
 	);
 }
