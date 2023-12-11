@@ -5,9 +5,11 @@ import {
 } from "../Requests/makeRequests";
 import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
+import { useParams } from "react-router-dom";
 
 
 export default function Article() {
+	const { id } = useParams();
 	const [isLoadingArticle, setIsLoadingArticle] = useState(true);
 	const [isLoadingComments, setIsLoadingComments] = useState(true);
 	const [article, setArticle] = useState();
@@ -17,12 +19,11 @@ export default function Article() {
 
 	useEffect(() => {
 
-		getArticleById(16).then((article) => {
-      console.log(article);
+		getArticleById(id).then((article) => {
 			setArticle(article);
 			setIsLoadingArticle(false);
 		});
-		getCommentsByArticleId(16).then((comments) => {
+		getCommentsByArticleId(id).then((comments) => {
 			setComments(comments);
 			setIsLoadingComments(false);
 		});

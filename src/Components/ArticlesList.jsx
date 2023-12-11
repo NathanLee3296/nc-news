@@ -16,7 +16,7 @@ export default function Articles() {
 
 	return (
 		<>
-			<h2>Articles</h2>
+			<h2 id="article-list-header">Articles</h2>
 			<section id="article-list">
 				{isLoading && <p>page loading</p>}
 				{!isLoading &&

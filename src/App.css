@@ -11,6 +11,11 @@
 	text-align: center;
 }
 
+#article-list-header {
+	text-align: center;
+}
+
+
 .article-container {
 	display: grid;
 	align-items: center;
