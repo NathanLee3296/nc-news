@@ -1,8 +1,88 @@
 * {
 	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
 }
 
 #header {
 	border: 3px solid salmon;
+	padding: 20px;
+	margin: 15px;
+	text-align: center;
 }
 
+.article-container {
+	display: grid;
+	align-items: center;
+	text-align: center;
+	grid-template-areas:
+		"title title title title"
+		"topic topic pic pic"
+		"body body pic pic"
+		"body body pic pic"
+		"votes votes comm comm";
+	gap: max(10px, 2vw);
+}
+
+#article-author-topic {
+	font-size: max(2vw, 1rem);
+	grid-area: topic;
+	text-align: center;
+}
+#article-title {
+	grid-area: title;
+}
+
+#article-body {
+	font-size: max(2vw, 1.25rem);
+	grid-area: body;
+}
+#article-votes {
+	grid-area: votes;
+}
+#article-comm-count {
+	grid-area: comm;
+}
+
+.article-image {
+	grid-area: pic;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+}
+
+.comment-list {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	padding: 0px 15px;
+}
+
+.comment-card {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	border: 2px solid green;
+}
+.comment-author {
+	order: 1;
+}
+.comment-body {
+	order: 3;
+}
+.comment-votes {
+	order: 2;
+}
+
+@media only screen and (max-width: 600px) {
+	.article-container {
+		grid-template-areas:
+			"title title title title"
+			"topic topic topic topic "
+			"body body body body"
+			"body body body body"
+			"pic pic pic pic"
+			"pic pic pic pic"
+			"votes votes comm comm";
+	}
+}
