@@ -5,7 +5,7 @@ export default function Header() {
 		<div id="header">
 			<h1>NC-News</h1>
       <nav>
-      
+  
       </nav>
 		</div>
 	);
