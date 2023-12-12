@@ -27,14 +27,30 @@ export async function deleteCommentById(id) {
 		`https://news-server-gasb.onrender.com/api/comments/${id}`
 	);
 
-  if (deleteComment.status === 204) {
-    return true;
-  } else {return false;}
-
+	if (deleteComment.status === 204) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
-export default async function getArticles() {
-  const {data : {articles}} = await axios.get("https://news-server-gasb.onrender.com/api/articles/")
-  return articles;
+export async function getArticles() {
+	const {
+		data: { articles },
+	} = await axios.get("https://news-server-gasb.onrender.com/api/articles/");
+	return articles;
+}
+
+export async function patchVotes(id, amount) {
+	const vote = await axios.patch(
+		`https://news-server-gasb.onrender.com/api/articles/${id}/`,
+		{
+			inc_votes: amount,
+		}
+	)
+	
+	if (vote.status === 200) return true;
+
+	return false;
 
 }
