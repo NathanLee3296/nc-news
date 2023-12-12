@@ -47,10 +47,22 @@ export async function patchVotes(id, amount) {
 		{
 			inc_votes: amount,
 		}
-	)
-	
+	);
+
 	if (vote.status === 200) return true;
 
 	return false;
+}
 
+export async function postCommentByArticleID(
+	articleId,
+	commentText,
+	username1
+) {
+	const comment = await axios.post(
+		`https://news-server-gasb.onrender.com/api/articles/${articleId}/comments`,
+		{ body: commentText, username: username1 }
+	);
+
+	return comment;
 }

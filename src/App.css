@@ -39,25 +39,24 @@ body {
 	width: max(20vw, 300px);
 }
 
-
 /* Article Page */
 .article-container {
 	display: grid;
 	align-items: center;
 	text-align: center;
 	grid-template-areas:
-	"topic topic topic topic "
-	"title title title title"
-	"author author author author "
-	"body body body body"
-	"pic pic pic pic"
-	"pic pic pic pic"
-	"votes votes comm comm";
+		"topic topic topic topic "
+		"title title title title"
+		"author author author author "
+		"body body body body"
+		"pic pic pic pic"
+		"pic pic pic pic"
+		". votes comm .";
 	gap: max(10px, 2vw);
 }
 
 @media only screen and (min-width: 600px) {
-	.article-image {
+	#article-image {
 		max-width: 75%;
 		justify-self: center;
 	}
@@ -84,14 +83,16 @@ body {
 	font-size: max(2vw, 1.25rem);
 	grid-area: body;
 }
+
 #article-votes {
 	grid-area: votes;
 }
-#article-comm-count {
+
+#article-comment-count {
 	grid-area: comm;
 }
 
-.article-image {
+#article-image {
 	grid-area: pic;
 	box-sizing: border-box;
 	width: 100%;
@@ -114,10 +115,14 @@ body {
 	padding: 15px;
 	border: 2px solid white;
 	border-radius: 25px;
+	grid-template-columns: 1fr 15fr;
 	grid-template-areas:
-		"user user user"
-		"up votes down"
-		"body body body";
+		"user votes time"
+		"body body  body";
+}
+
+.comment-time {
+	grid-area: time;
 }
 .comment-author {
 	grid-area: user;
@@ -129,6 +134,7 @@ body {
 	grid-area: votes;
 	display: flex;
 	align-items: flex-end;
+	margin-right: auto;
 	gap: 4px;
 }
 
@@ -138,7 +144,52 @@ body {
 	color: black;
 }
 
+.btn {
+	font-weight: 600;
+	font-size: 1rem;
+	line-height: 1.5;
+	padding: 8px 16px;
+	border-radius: 8px;
+	color: var(--BGColor);
+	background-color: var(--AccentColor);
+	transition: all 150ms ease;
+	cursor: pointer;
+	align-self: center;
+}
 
+.btn:hover {
+	box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px,
+		rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px,
+		rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px,
+		rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px,
+		rgb(255, 85, 85) 40px -40px;
+	transform: scale(1.15);
+}
+
+.btn:disabled {
+	background-color: grey;
+	color: firebrick;
+	transform: scale(1);
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+		rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+		rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+		rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+		rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.comment-adder {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+.comment-text-box {
+	font-size: x-large;
+	color: black;
+	width: 70%;
+}
 
 /* Article List + Card */
 
@@ -210,5 +261,3 @@ body {
 	padding: 5px;
 	border-radius: 25px;
 }
-
-
