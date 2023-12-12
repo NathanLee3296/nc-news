@@ -11,6 +11,7 @@ import Badge from "@mui/material/Badge";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ErrorSnackbar from "./Snackbar";
+import CommentList from "./CommentList";
 
 export default function Article() {
 	const { id } = useParams();
@@ -68,18 +69,10 @@ export default function Article() {
 				</div>
 			)}
 			{isLoadingComments && <CommentAdder />}
-			{!isLoadingComments && (
-				<section className="comment-list">
-					{comments.map((comment) => {
-						return (
-							<CommentCard
-								key={comment.comment_id}
-								comment={comment}
-								setComments={setComments}
-							/>
-						);
-					})}
-				</section>
+			{!isLoadingComments && comments ? (
+				<CommentList comments={comments} />
+			) : (
+				<h1>no comments</h1>
 			)}
 		</>
 	);
