@@ -14,6 +14,8 @@ body {
 	color: var(--AccentColor);
 }
 
+/* Header */
+
 #header {
 	display: flex;
 	flex-wrap: wrap;
@@ -37,21 +39,28 @@ body {
 	width: max(20vw, 300px);
 }
 
-#article-list-header {
-	text-align: center;
-}
 
+/* Article Page */
 .article-container {
 	display: grid;
 	align-items: center;
 	text-align: center;
 	grid-template-areas:
-		"title title title title"
-		"topic topic pic pic"
-		"body body pic pic"
-		"body body pic pic"
-		"votes votes comm comm";
+	"topic topic topic topic "
+	"title title title title"
+	"author author author author "
+	"body body body body"
+	"pic pic pic pic"
+	"pic pic pic pic"
+	"votes votes comm comm";
 	gap: max(10px, 2vw);
+}
+
+@media only screen and (min-width: 600px) {
+	.article-image {
+		max-width: 75%;
+		justify-self: center;
+	}
 }
 
 #article-author {
@@ -90,6 +99,8 @@ body {
 	border-radius: 10%;
 }
 
+/* Article Comments */
+
 .comment-list {
 	display: flex;
 	flex-direction: column;
@@ -127,18 +138,14 @@ body {
 	color: black;
 }
 
-@media only screen and (max-width: 600px) {
-	.article-container {
-		grid-template-areas:
-			"topic topic topic topic "
-			"title title title title"
-			"author author author author "
-			"body body body body"
-			"pic pic pic pic"
-			"pic pic pic pic"
-			"votes votes comm comm";
-	}
+
+
+/* Article List + Card */
+
+#article-list-header {
+	text-align: center;
 }
+
 #article-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -166,35 +173,35 @@ body {
 	gap: 15px;
 }
 
-.article-title {
+.article-card-title {
 	grid-area: title;
 	justify-self: center;
 	font-size: max(1.5rem, 2vw);
 }
 
-.article-author {
+.article-card-author {
 	grid-area: author;
 }
 
-.article-topic {
+.article-card-topic {
 	grid-area: topic;
 }
 
-.article-votes {
+.article-card-votes {
 	grid-area: votes;
 }
 
-.article-comment-count {
+.article-card-comment-count {
 	grid-area: comments;
 }
 
-.article-date {
+.article-card-date {
 	grid-area: date;
 	justify-self: end;
 	padding-right: 5px;
 }
 
-.article-img-card {
+.article-card-img {
 	box-sizing: border-box;
 	width: 75%;
 	justify-self: center;
