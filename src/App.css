@@ -1,20 +1,45 @@
+:root {
+	--BGColor: rgba(18, 30, 38, 255);
+	--AccentColor: rgba(221, 205, 198, 255);
+}
+
+body {
+	background-color: var(--BGColor);
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0px;
 	padding: 0px;
+	color: var(--AccentColor);
 }
 
 #header {
-	border: 3px solid salmon;
-	padding: 20px;
-	margin: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: flex-end;
 	text-align: center;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 2px solid var(--AccentColor);
+}
+
+#navbar {
+	display: inline-flex;
+	margin-right: auto;
+	gap: 25px;
+	margin-left: 15%;
+	padding: 5px;
+}
+
+#header-image {
+	width: max(20vw, 300px);
 }
 
 #article-list-header {
 	text-align: center;
 }
-
 
 .article-container {
 	display: grid;
@@ -29,11 +54,19 @@
 	gap: max(10px, 2vw);
 }
 
-#article-author-topic {
+#article-author {
 	font-size: max(2vw, 1rem);
-	grid-area: topic;
+	grid-area: author;
 	text-align: center;
 }
+
+#article-topic {
+	justify-self: justify;
+	grid-area: topic;
+	padding-left: 5%;
+	font-size: 1rem;
+}
+
 #article-title {
 	grid-area: title;
 }
@@ -54,37 +87,52 @@
 	box-sizing: border-box;
 	width: 100%;
 	padding: 10px;
+	border-radius: 10%;
 }
 
 .comment-list {
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
+	gap: 15px;
 	padding: 0px 15px;
 }
 
 .comment-card {
-	display: flex;
-	gap: 10px;
-	flex-wrap: wrap;
-	border: 2px solid green;
+	display: grid;
+	gap: 5px;
+	padding: 15px;
+	border: 2px solid white;
+	border-radius: 25px;
+	grid-template-areas:
+		"user user user"
+		"up votes down"
+		"body body body";
 }
 .comment-author {
-	order: 1;
+	grid-area: user;
 }
 .comment-body {
-	order: 3;
+	grid-area: body;
 }
 .comment-votes {
-	order: 2;
+	grid-area: votes;
+	display: flex;
+	align-items: flex-end;
+	gap: 4px;
+}
+
+.comment-thumb-up :hover,
+.comment-thumb-down :hover {
+	transition-duration: 0.2s;
+	color: black;
 }
 
 @media only screen and (max-width: 600px) {
 	.article-container {
 		grid-template-areas:
-			"title title title title"
 			"topic topic topic topic "
-			"body body body body"
+			"title title title title"
+			"author author author author "
 			"body body body body"
 			"pic pic pic pic"
 			"pic pic pic pic"
@@ -92,7 +140,6 @@
 	}
 }
 #article-list {
-	border: 3px solid pink;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -101,19 +148,28 @@
 }
 
 .article-card {
-	max-width: 400px;
-	border: 1px solid rebeccapurple;
+	max-width: max(400px, 30%);
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid var(--AccentColor);
+	background-color: #313b4a;
+	border-radius: 25px;
+	justify-items: center;
 	display: grid;
+	text-align: center;
 	grid-template-areas:
-		"topic date author author"
 		"title title title title"
+		"author author topic date"
 		"pic pic pic pic"
 		"pic pic pic pic"
-		"votes . . comments";
+		"votes votes comments comments";
+	gap: 15px;
 }
 
 .article-title {
 	grid-area: title;
+	justify-self: center;
+	font-size: max(1.5rem, 2vw);
 }
 
 .article-author {
@@ -132,11 +188,18 @@
 	grid-area: comments;
 }
 
+.article-date {
+	grid-area: date;
+	justify-self: end;
+	padding-right: 5px;
+}
+
 .article-img-card {
-	box-sizing:border-box;
-	width: 100%;
+	box-sizing: border-box;
+	width: 75%;
+	justify-self: center;
 	height: auto;
 	grid-area: pic;
 	padding: 5px;
-  border-radius: 15%;
+	border-radius: 25px;
 }
