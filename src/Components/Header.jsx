@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import logo from "../Assets/Logo-transparent.png"
 
 export default function Header() {
 	return (
 		<div id="header">
-			<h1>NC-News</h1>
-      <nav>
-        <Link to="/">Articles</Link>
+			<img id="header-image" src={logo}></img>
+      <nav id="navbar">
+        <Link to="/">Front Page</Link>
+				|
+				<Link to="/search">Search</Link>
       </nav>
 		</div>
 	);
