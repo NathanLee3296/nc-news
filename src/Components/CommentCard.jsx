@@ -4,7 +4,7 @@ import { deleteCommentById } from "../Requests/makeRequests";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ErrorSnackbar from "./Snackbar";
-import { humanized_time_span } from "../Utils/humanized_time_span";
+import moment from "moment";
 
 export default function CommentCard({ comment, setComments }) {
 	const { currUser, setCurrUser } = useContext(UserContext);
@@ -25,7 +25,7 @@ export default function CommentCard({ comment, setComments }) {
 		<div className="comment-card">
 			<h3 className="comment-author">{comment.author}</h3>
 			<p className="comment-body">{comment.body}</p>
-			<p className="comment-time">{humanized_time_span(comment.created_at)}</p>
+			<p className="comment-time">{moment.utc(comment.created_at).local().startOf('seconds').fromNow()}</p>
 			<div className="comment-votes">
 				<ThumbUpIcon className="comment-thumb-up" />
 				<p>{comment.votes}</p>

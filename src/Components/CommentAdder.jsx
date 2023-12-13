@@ -19,7 +19,7 @@ export default function CommentAdder({ article, setComments }) {
 					comment_id: -1,
 					author: currUser.username,
 					body: textValue,
-					created_at: humanized_time_span(date),
+					created_at: Date.now(),
 					votes: 0,
 				},
 			];

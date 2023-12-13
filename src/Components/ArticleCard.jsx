@@ -8,6 +8,7 @@ import { useState } from "react";
 import { patchVotes } from "../Requests/makeRequests";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ErrorSnackbar from "./Snackbar";
+import moment from "moment";
 
 export default function ArticleCard({ article }) {
 	const [votes, setVotes] = useState(article.votes || "0");
@@ -49,7 +50,7 @@ export default function ArticleCard({ article }) {
 				<CommentIcon />
 			</Badge>
 			<p className="article-card-date">
-				{humanized_time_span(article.created_at)}
+				{moment.utc(article.created_at).local().startOf('seconds').fromNow()}
 			</p>
 		</div>
 	);
