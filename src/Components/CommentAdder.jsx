@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import { Button } from "@mui/base/Button";
 import { UserContext } from "../Context/User";
 import { postCommentByArticleID } from "../Requests/makeRequests";
-import { humanized_time_span } from "../Utils/humanized_time_span";
 
 export default function CommentAdder({ article, setComments }) {
 	const [textValue, setTextValue] = useState();
