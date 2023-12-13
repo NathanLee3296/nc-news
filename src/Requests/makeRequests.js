@@ -35,11 +35,12 @@ export async function deleteCommentById(id) {
 }
 
 export async function getArticles({ author, topic, sort_by, order }) {
+	if (topic === "All") topic = undefined;
+	if (sort_by === "Select Query") sort_by = "created_at"
 	const {
 		data: { articles },
 	} = await axios.get("https://news-server-gasb.onrender.com/api/articles", {
 		params: {
-			author: author,
 			topic: topic,
 			sort_by: sort_by,
 			order: order,

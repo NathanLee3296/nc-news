@@ -1,4 +1,3 @@
-
 import { Link, useSearchParams } from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 import Badge from "@mui/material/Badge";
@@ -50,7 +49,7 @@ export default function ArticleCard({ article }) {
 				<CommentIcon />
 			</Badge>
 			<p className="article-card-date">
-				{moment.utc(article.created_at).local().startOf('seconds').fromNow()}
+				{moment.utc(article.created_at).local().startOf("seconds").fromNow()}
 			</p>
 		</div>
 	);

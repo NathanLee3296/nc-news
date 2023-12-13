@@ -12,7 +12,7 @@ export default function CommentAdder({ article, setComments }) {
 
 	const handleCommentSubmit = (e) => {
 		setComments((currComments) => {
-			const date = Date.now();
+			
 			let newComment = [
 				{
 					comment_id: -1,

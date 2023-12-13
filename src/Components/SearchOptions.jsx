@@ -1,14 +1,18 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { getArticleTopics } from "../Requests/makeRequests";
 
 function SearchOptions({ handleClose }) {
 	const [topics, setTopics] = useState([]);
-	const [chosenTopic, setChosenTopic] = useState();
+	const [chosenTopic, setChosenTopic] = useState("All");
+	const [chosenSortBy, setChosenSortBy] = useState("created_at");
+	const [chosenOrder, setChosenOrder] = useState("DESC");
 
 	const navigate = useNavigate();
+	const queries = {"created_at" : "Date Posted", "votes" : "Votes"} ;
+	const orderBy =  {"DESC" : "Descending", "ASC" : "Ascending" }
 
 	useEffect(() => {
 		getArticleTopics().then(({ data: { topics } }) => {
@@ -18,7 +22,14 @@ function SearchOptions({ handleClose }) {
 
 	const handleSubmission = (e) => {
 		e.preventDefault();
-		navigate(`/search/${chosenTopic}`);
+
+		const params = { SortBy: chosenSortBy, Order: chosenOrder };
+
+		navigate({
+			pathname: `/search/${chosenTopic}`,
+			search: `?${createSearchParams(params)}`,
+		});
+
 		handleClose();
 	};
 
@@ -28,12 +39,12 @@ function SearchOptions({ handleClose }) {
 				<Col>
 					<Form.Label>Topics</Form.Label>
 					<Form.Select
-						id="search-category"
+						id="search-topic"
 						onChange={(e) => {
 							setChosenTopic(e.target.value);
 						}}
 					>
-						<option>Select Topic</option>
+						<option>All</option>
 						{topics.map((topic) => {
 							return (
 								<option key={topic.slug} value={topic.slug}>
@@ -43,6 +54,43 @@ function SearchOptions({ handleClose }) {
 						})}
 					</Form.Select>
 				</Col>
+				<Row>
+					<Col>
+						<Form.Label>Sort By</Form.Label>
+						<Form.Select
+							id="search-sortby"
+							onChange={(e) => {
+								setChosenSortBy(e.target.value);
+							}}
+						>
+							<option>Select Query</option>
+							{Object.keys(queries).map((query) => {
+								return (
+									<option key={query} value={query}>
+										{queries[query]}
+									</option>
+								);
+							})}
+						</Form.Select>
+					</Col>
+					<Col>
+						<Form.Label>Order By</Form.Label>
+						<Form.Select
+							id="search-orderby"
+							onChange={(e) => {
+								setChosenOrder(e.target.value);
+							}}
+						>
+							{Object.keys(orderBy).map((order) => {
+								return (
+									<option key={order} value={order}>
+										{orderBy[order]}
+									</option>
+								);
+							})}
+						</Form.Select>
+					</Col>
+				</Row>
 				<Col>
 					<Button
 						type="submit"

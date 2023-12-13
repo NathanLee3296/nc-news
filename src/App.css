@@ -43,6 +43,15 @@ body {
 	width: max(20vw, 300px);
 }
 
+#search-topic-header {
+	background-color: var(--AccentColor);
+	padding: 5px 15px;
+	margin-right: 15px;
+	width: 25%;
+}
+
+
+
 /* Article Page */
 .article-container {
 	display: grid;
@@ -269,18 +278,27 @@ body {
 
 /* Search Canvas & Search Options */
 
+.offcanvas.offcanvas-top{
+	height: fit-content !important;
+}
+
+
 #search-canvas {
 	background-color: var(--BGColor);
 	color: var(--BGColor);
 }
-#search-category {
+
+#search-topic, #search-sortby, #search-orderby {
 	background-color: var(--AccentColor);
 	padding: 15px;
-	margin: 5px;
+	margin: 5px
+	
 }
+
 
 .col {
 	text-align: center;
+	align-content: center;
 }
 
 #search-button {
