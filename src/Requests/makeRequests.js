@@ -34,10 +34,17 @@ export async function deleteCommentById(id) {
 	}
 }
 
-export async function getArticles() {
+export async function getArticles({ author, topic, sort_by, order }) {
 	const {
 		data: { articles },
-	} = await axios.get("https://news-server-gasb.onrender.com/api/articles/");
+	} = await axios.get("https://news-server-gasb.onrender.com/api/articles", {
+		params: {
+			author: author,
+			topic: topic,
+			sort_by: sort_by,
+			order: order,
+		},
+	});
 	return articles;
 }
 
@@ -65,4 +72,11 @@ export async function postCommentByArticleID(
 	);
 
 	return comment;
+}
+
+export async function getArticleTopics() {
+	const topics = await axios.get(
+		"https://news-server-gasb.onrender.com/api/topics"
+	);
+	return topics;
 }
