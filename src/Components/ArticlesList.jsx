@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Grid from "@mui/material/Grid";
@@ -8,15 +7,19 @@ import Skeleton from "@mui/material/Skeleton";
 import { Stack } from "@mui/material";
 import { getArticles } from "../Requests/makeRequests";
 
-export default function Articles() {
-	const [articleList, setArticleList] = useState();
+export default function ArticleList({ propArticles }) {
+	const [articleList, setArticleList] = useState(propArticles || undefined);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		getArticles().then((articles) => {
-			setArticleList(articles);
+		if (!articleList) {
+			getArticles({}).then((articles) => {
+				setArticleList(articles);
+				setIsLoading(false);
+			});
+		} else {
 			setIsLoading(false);
-		});
+		}
 	}, []);
 
 	return (

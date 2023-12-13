@@ -34,10 +34,17 @@ export async function deleteCommentById(id) {
 	}
 }
 
-export async function getArticles() {
+export async function getArticles({ author, topic, sort_by, order }) {
 	const {
 		data: { articles },
-	} = await axios.get("https://news-server-gasb.onrender.com/api/articles/");
+	} = await axios.get("https://news-server-gasb.onrender.com/api/articles", {
+		params: {
+			author: author,
+			topic: topic,
+			sort_by: sort_by,
+			order: order,
+		},
+	});
 	return articles;
 }
 
@@ -47,10 +54,29 @@ export async function patchVotes(id, amount) {
 		{
 			inc_votes: amount,
 		}
-	)
-	
+	);
+
 	if (vote.status === 200) return true;
 
 	return false;
+}
 
+export async function postCommentByArticleID(
+	articleId,
+	commentText,
+	username1
+) {
+	const comment = await axios.post(
+		`https://news-server-gasb.onrender.com/api/articles/${articleId}/comments`,
+		{ body: commentText, username: username1 }
+	);
+
+	return comment;
+}
+
+export async function getArticleTopics() {
+	const topics = await axios.get(
+		"https://news-server-gasb.onrender.com/api/topics"
+	);
+	return topics;
 }

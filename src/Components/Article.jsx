@@ -12,6 +12,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ErrorSnackbar from "./Snackbar";
 import CommentList from "./CommentList";
+import CommentIcon from "@mui/icons-material/Comment";
 
 export default function Article() {
 	const { id } = useParams();
@@ -36,11 +37,15 @@ export default function Article() {
 			setVotes(article.votes || "0");
 			setIsLoadingArticle(false);
 		});
+	}, []);
+
+	useEffect(() => {
 		getCommentsByArticleId(id).then((comments) => {
 			setComments(comments);
 			setIsLoadingComments(false);
 		});
-	}, []);
+	},[])
+
 
 	return (
 		<>
@@ -56,21 +61,24 @@ export default function Article() {
 					<h6 id="article-topic">topic | {article.topic}</h6>
 					<h4 id="article-author">Author | {article.author}</h4>
 					<p id="article-body">{article.body}</p>
-					<Badge className="article-votes" badgeContent={votes}>
+					<Badge id="article-votes" badgeContent={votes}>
 						<ThumbUpIcon onClick={(e) => handleVote(article.article_id, 1)} />
 						<ThumbDownIcon
 							onClick={(e) => handleVote(article.article_id, -1)}
 						/>
 					</Badge>
-					<p id="article-comm-count">
-						Num of Comments: {article.comment_count}
-					</p>
-					<img className="article-image" src={article.article_img_url}></img>
+					<Badge
+						id="article-comment-count"
+						badgeContent={article.comment_count}
+					>
+						<CommentIcon />
+					</Badge>
+					<img id="article-image" src={article.article_img_url}></img>
 				</div>
 			)}
-			{isLoadingComments && <CommentAdder />}
+			{!isLoadingComments && <CommentAdder article={article} setComments={setComments} />}
 			{!isLoadingComments && comments ? (
-				<CommentList comments={comments} />
+				<CommentList comments={comments} setComments={setComments}  />
 			) : (
 				<h1>no comments</h1>
 			)}
