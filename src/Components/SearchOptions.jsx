@@ -84,7 +84,7 @@ function SearchOptions({ handleClose }) {
 							{Object.keys(orderBy).map((order) => {
 								return (
 									<option key={order} value={order}>
-										{orderBy[order]}
+										{orderBy[order]git s}
 									</option>
 								);
 							})}
