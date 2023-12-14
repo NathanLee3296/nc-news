@@ -2,10 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../Assets/Logo-transparent.png";
 import SearchOffCanvas from "./SearchOffcanvas";
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import { getArticleTopics } from "../Requests/makeRequests";
 import { Button as ButtonMUI } from "@mui/material";
-import { Celebration } from "@mui/icons-material";
 
 export default function Header() {
 	const navigate = useNavigate();
@@ -22,13 +21,10 @@ export default function Header() {
 		});
 	}, []);
 
-	useEffect(() => {
-		handleSubmission();
-	}, [chosenTopic]);
 
-	const handleSubmission = () => {
+	const handleSubmission = (e) => {
 		navigate({
-			pathname: `/search/${chosenTopic}`,
+			pathname: `/search/${e}`,
 		});
 	};
 
@@ -51,7 +47,8 @@ export default function Header() {
 			<Form.Select
 				id="search-topic-header"
 				onChange={(e) => {
-					setChosenTopic(e.target.value);
+					setChosenTopic(e.target.value)
+					handleSubmission(e.target.value);
 				}}
 			>
 				<option>All</option>

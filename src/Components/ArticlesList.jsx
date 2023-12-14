@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Skeleton from "@mui/material/Skeleton";
-import { Stack } from "@mui/material";
 import { getArticles } from "../Requests/makeRequests";
+import ErrorSnackbar from "./Snackbar";
+import LoadingSkeleton from "./ArticleListLoadingSkeleton";
 
-export default function ArticleList({ propArticles }) {
+export default function ArticleList({ propArticles, error }) {
 	const [articleList, setArticleList] = useState(propArticles || undefined);
 	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
+		if (error === "true") {
+			setIsError(true);
+		}
 		if (!articleList) {
 			getArticles({}).then((articles) => {
 				setArticleList(articles);
@@ -24,6 +25,12 @@ export default function ArticleList({ propArticles }) {
 
 	return (
 		<>
+			{isError && (
+				<ErrorSnackbar
+					errorMsg="Navigated to incorrect URL"
+					setIsError={setIsError}
+				/>
+			)}
 			<h2 id="article-list-header">Articles</h2>
 			<section id="article-list">
 				{!isLoading ? (
@@ -31,15 +38,7 @@ export default function ArticleList({ propArticles }) {
 						return <ArticleCard key={article.article_id} article={article} />;
 					})
 				) : (
-					<Stack spacing={1}>
-						{/* For variant="text", adjust the height via font-size */}
-						<Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-
-						{/* For other variants, adjust the size with `width` and `height` */}
-						<Skeleton variant="circular" width={40} height={40} />
-						<Skeleton variant="rectangular" width={210} height={60} />
-						<Skeleton variant="rounded" width={210} height={60} />
-					</Stack>
+					<LoadingSkeleton numToRender={3}/>
 				)}
 			</section>
 		</>
