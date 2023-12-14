@@ -53,7 +53,6 @@ export default function Article() {
 		});
 	}, []);
 
-	console.log(comments);
 
 	return (
 		<>
