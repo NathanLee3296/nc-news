@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { createSearchParams, useNavigate } from "react-router-dom";
@@ -84,7 +83,7 @@ function SearchOptions({ handleClose }) {
 							{Object.keys(orderBy).map((order) => {
 								return (
 									<option key={order} value={order}>
-										{orderBy[order]git s}
+										{orderBy[order]}
 									</option>
 								);
 							})}

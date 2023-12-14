@@ -8,7 +8,9 @@ export async function getArticleById(id) {
 			`https://news-server-gasb.onrender.com/api/articles/${id}`
 		);
 		return article;
-	} catch {}
+	} catch {
+		return Promise.reject("Article does not exist")
+	}
 }
 
 export async function getCommentsByArticleId(id) {
@@ -37,6 +39,9 @@ export async function deleteCommentById(id) {
 export async function getArticles({ author, topic, sort_by, order }) {
 	if (topic === "All") topic = undefined;
 	if (sort_by === "Select Query") sort_by = "created_at"
+
+
+	try {
 	const {
 		data: { articles },
 	} = await axios.get("https://news-server-gasb.onrender.com/api/articles", {
@@ -46,7 +51,10 @@ export async function getArticles({ author, topic, sort_by, order }) {
 			order: order,
 		},
 	});
-	return articles;
+	return articles; }
+	catch {
+		return Promise.reject("Invalid search topic")
+	}
 }
 
 export async function patchVotes(id, amount) {

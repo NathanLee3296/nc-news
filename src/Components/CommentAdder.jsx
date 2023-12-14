@@ -3,16 +3,18 @@ import { useContext, useState } from "react";
 import { Button } from "@mui/base/Button";
 import { UserContext } from "../Context/User";
 import { postCommentByArticleID } from "../Requests/makeRequests";
+import ErrorSnackbar from "./Snackbar";
 
 export default function CommentAdder({ article, setComments }) {
 	const [textValue, setTextValue] = useState();
 	const [placeholder, setPlaceholder] = useState("Enter Your Comment Here!!");
+	const [isError, setIsError] = useState(false);
 
 	const { currUser, setCurrUser } = useContext(UserContext);
 
 	const handleCommentSubmit = (e) => {
+		setIsError(false);
 		setComments((currComments) => {
-			
 			let newComment = [
 				{
 					comment_id: -1,
@@ -40,6 +42,7 @@ export default function CommentAdder({ article, setComments }) {
 				});
 			})
 			.catch((res) => {
+				setIsError(true);
 				setComments((currComments) => {
 					return currComments.filter(
 						(currComment) => currComment.comment_id != -1
@@ -49,26 +52,34 @@ export default function CommentAdder({ article, setComments }) {
 	};
 
 	return (
-		<section className="comment-adder">
-			<TextareaAutosize
-				aria-label="Post comment box - type here"
-				className="comment-text-box"
-				value={textValue}
-				minRows={2}
-				onChange={(e) => {
-					setTextValue(e.target.value);
-				}}
-				placeholder={placeholder}
-			/>
-			<Button
-				className="btn comment-button"
-				disabled={!textValue}
-				onClick={(e) => {
-					handleCommentSubmit(e);
-				}}
-			>
-				Post Comment
-			</Button>
-		</section>
+		<>
+			{isError && (
+				<ErrorSnackbar
+					errorMsg="Failed to post comment"
+					setIsError={setIsError}
+				/>
+			)}
+			<section className="comment-adder">
+				<TextareaAutosize
+					aria-label="Post comment box - type here"
+					className="comment-text-box"
+					value={textValue}
+					minRows={2}
+					onChange={(e) => {
+						setTextValue(e.target.value);
+					}}
+					placeholder={placeholder}
+				/>
+				<Button
+					className="btn comment-button"
+					disabled={!textValue}
+					onClick={(e) => {
+						handleCommentSubmit(e);
+					}}
+				>
+					Post Comment
+				</Button>
+			</section>
+		</>
 	);
 }

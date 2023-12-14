@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	getArticleById,
 	getCommentsByArticleId,
 	patchVotes,
 } from "../Requests/makeRequests";
-import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -23,6 +22,8 @@ export default function Article() {
 	const [votes, setVotes] = useState();
 	const [isError, setIsError] = useState(false);
 
+	const navigate = useNavigate();
+
 	const handleVote = (id, amount) => {
 		setVotes((curr) => +curr + amount);
 		patchVotes(id, amount).catch(() => {
@@ -32,20 +33,27 @@ export default function Article() {
 	};
 
 	useEffect(() => {
-		getArticleById(id).then((article) => {
-			setArticle(article);
-			setVotes(article.votes || "0");
-			setIsLoadingArticle(false);
-		});
+		getArticleById(id)
+			.then((article) => {
+				setArticle(article);
+				setVotes(article.votes || "0");
+				setIsLoadingArticle(false);
+			})
+			.catch(() => {
+				navigate({
+					pathname: `/*`,
+				});
+			});
 	}, []);
 
 	useEffect(() => {
 		getCommentsByArticleId(id).then((comments) => {
-			setComments(comments);
+			setComments(comments || []);
 			setIsLoadingComments(false);
 		});
-	},[])
+	}, []);
 
+	console.log(comments);
 
 	return (
 		<>
@@ -76,12 +84,16 @@ export default function Article() {
 					<img id="article-image" src={article.article_img_url}></img>
 				</div>
 			)}
-			{!isLoadingComments && <CommentAdder article={article} setComments={setComments} />}
-			{!isLoadingComments && comments ? (
-				<CommentList comments={comments} setComments={setComments}  />
-			) : (
-				<h1>no comments</h1>
+			{!isLoadingComments && (
+				<CommentAdder article={article} setComments={setComments} />
 			)}
+
+			{!isLoadingComments &&
+				((comments.length != 0) ? (
+					<CommentList comments={comments} setComments={setComments} />
+				) : (
+					<h4>Be the first to comment!</h4>
+				))}
 		</>
 	);
 }

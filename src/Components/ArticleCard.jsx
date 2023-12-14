@@ -1,8 +1,7 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 import Badge from "@mui/material/Badge";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import axios from "axios";
 import { useState } from "react";
 import { patchVotes } from "../Requests/makeRequests";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
